@@ -18,7 +18,35 @@ include '../db.php';
         VALUES (?,?,?)",
         [$naam, $email, $password]);
     }
+
+    public function selectAllKlanten(){
+        return $this->dbh->execute("SELECT * FROM klant");
+    }
+    public function selectOneKlant($ID){
+        return $this->dbh->execute("SELECT * FROM klant", [$ID]);
+    }
+
+
+    public function updateKlant($ID, $naam, $email, $password) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $sql = "UPDATE klant SET naam = ?,  email = ?,  password = ? WHERE ID = ?";
+        return $this->dbh->execute($sql, array($naam, $email,  $hashedPassword, $ID));
+    }
+    
+
+    public function getKlantById($ID) {
+        $sql = "SELECT * FROM klant WHERE ID = ?";
+        $stmt = $this->dbh->execute($sql, array($ID));
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public function deleteKlant($ID) {
+        $sql = "DELETE FROM klant WHERE ID = ?";
+        return $this->dbh->execute($sql, array($ID));
+    }
+    
 }
+
+
  
 ?>
  
