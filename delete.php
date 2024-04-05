@@ -1,12 +1,12 @@
 <?php
-include_once('klant.php');
+include_once('product.php');
  
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["ID"])) {
     $ID = $_GET["ID"];
-    $klanten  = new klant($myDb);
-    $klanten->deleteKlant($ID);
+    $product  = new Product($myDb);
+    $product->deleteproduct($ID);
 }
  
-header("Location:view-klant.php");
+header("Location:view-product.php");
 exit();
 ?>

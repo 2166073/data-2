@@ -18,6 +18,27 @@ include '../db.php';
         VALUES (?,?,?)",
         [$naam, $omschrijving, $prijs]);
     }
+
+    public function selectAllproduct(){
+        return $this->dbh->execute("SELECT * FROM product");
+    }
+
+    public function updateProduct($ID, $naam, $omschrijving, $prijs) {
+        $sql = "UPDATE product SET naam = ?,  omschrijving = ?,  prijs = ? WHERE ID = ?";
+        return $this->dbh->execute($sql, array($naam, $omschrijving, $prijs,  $ID));
+    }
+    
+
+    public function getproductById($ID) {
+        $sql = "SELECT * FROM product WHERE ID = ?";
+        $stmt = $this->dbh->execute($sql, array($ID));
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public function deleteproduct($ID) {
+        $sql = "DELETE FROM product WHERE ID = ?";
+        return $this->dbh->execute($sql, array($ID));
+    }
+    
 }
  
 ?>
