@@ -1,17 +1,17 @@
 <?php
-include_once('product.php');
+include_once('rekening.php');
  
-$product  = new Product($myDb);
+$rekening  = new Rekening($myDb);
  
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $ID = $_POST["ID"];
         $naam = $_POST["naam"];
-        $omschrijving = $_POST["omschrijving"];
-        $prijs = $_POST["prijs"];
+        $tafelnummer = $_POST["tafelnummer"];
+        $totaal_bedrag = $_POST["totaal_bedrag"];
        
-        $product->updateProduct($ID, $naam, $omschrijving, $prijs); // Let op de variabelenaam hier
-        header("Location: view-product.php");
+        $rekening->updateRekening($ID, $naam, $tafelnummer, $totaal_bedrag); // Let op de variabelenaam hier
+        header("Location: view-rekening.php");
         exit;
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
 if (isset($_GET["ID"])) {
     $ID = $_GET["ID"];
-    $Product = $product->getproductById($ID); // Let op de variabelenaam hier
+    $Rekening = $rekening->getrekeningById($ID); // Let op de variabelenaam hier
 }
 ?>
  
@@ -34,21 +34,21 @@ if (isset($_GET["ID"])) {
 </head>
 <body>
     <div class="container">
-        <h2>Bewerk product</h2>
+        <h2>Bewerk Rekening</h2>
         <form method="POST">
             <input type="hidden" name="ID" value="<?php echo $ID; ?>">
             <div class="mb-3">
                 <label class="form-label">Naam:</label>
-                <input type="text" class="form-control" name="naam" value="<?php echo $Product['naam']; ?>" required>
+                <input type="text" class="form-control" name="naam" value="<?php echo $Rekening['naam']; ?>" required>
             </div>
             <div class="mb-3">
-                <label class="form-label">omschrijving:</label>
-                <input type="text" class="form-control" name="email" value="<?php echo $Product['omschrijving']; ?>" required>
+                <label class="form-label">tafelnummer:</label>
+                <input type="text" class="form-control" name="email" value="<?php echo $Rekening['tafelnummer']; ?>" required>
             </div>
         
             <div class="mb-3">
-                <label class="form-label">prijs:</label>  
-                <input type="price" class="form-control" name="prijs" required>
+                <label class="form-label">totaal_bedrag:</label>  
+                <input type="price" class="form-control" name="totaal_bedrag" required>
             </div>
             <button type="submit" class="btn btn-primary">Opslaan</button>
         </form>

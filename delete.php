@@ -1,12 +1,12 @@
 <?php
-include_once('product.php');
+include_once('rekening.php');
  
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["ID"])) {
     $ID = $_GET["ID"];
-    $product  = new Product($myDb);
-    $product->deleteproduct($ID);
+    $rekening  = new Rekening($myDb);
+    $rekening->deleterekening($ID);
 }
  
-header("Location:view-product.php");
+header("Location:view-rekening.php");
 exit();
 ?>
